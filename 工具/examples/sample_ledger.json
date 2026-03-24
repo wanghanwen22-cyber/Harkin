@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-03-20",
+    "tx_id": "TX1001",
+    "amount": "1280.50",
+    "description": "Corporate payment A"
+  },
+  {
+    "date": "2026-03-20",
+    "tx_id": "TX1002",
+    "amount": "980.00",
+    "description": "Corporate payment B"
+  },
+  {
+    "date": "2026-03-21",
+    "tx_id": "TX1003",
+    "amount": "4500.00",
+    "description": "Monthly settlement"
+  },
+  {
+    "date": "2026-03-21",
+    "tx_id": "FEE-01",
+    "amount": "120.00",
+    "description": "Bank fee"
+  },
+  {
+    "date": "2026-03-22",
+    "tx_id": "TX1005",
+    "amount": "760.35",
+    "description": "Vendor payout"
+  },
+  {
+    "date": "2026-03-22",
+    "tx_id": "TX9999",
+    "amount": "300.00",
+    "description": "Ledger only item"
+  }
+]

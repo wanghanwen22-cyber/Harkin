@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precision Architect - 设置</title>
+    <link rel="stylesheet" href="./app.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-badge">账</div>
+          <div class="brand-copy">
+            <h1>企业对账系统</h1>
+            <p>系统设置</p>
+          </div>
+        </div>
+        <nav class="nav-group">
+          <a class="nav-link" href="./dashboard.html">仪表盘</a>
+          <a class="nav-link" href="./audit-log.html">审核日志</a>
+          <a class="nav-link" href="./monthly-report.html">月度汇总</a>
+          <a class="nav-link active" href="./settings.html">系统设置</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <section class="topbar">
+          <div class="page-header">
+            <p class="page-eyebrow">参数配置</p>
+            <h2>系统偏好</h2>
+            <p>对账阈值和本地配置会保存到当前浏览器，修改后会影响后续任务的计算结果。</p>
+          </div>
+          <div class="topbar-tools">
+            <div class="badge success" id="settings-summary">-</div>
+          </div>
+        </section>
+
+        <div class="settings-layout">
+          <nav class="settings-nav">
+            <a class="active" href="#thresholds">阈值</a>
+            <a href="#directories">目录</a>
+            <a href="#payments">支付网关</a>
+            <a href="#security">本地数据</a>
+          </nav>
+
+          <form class="stack" id="settings-form">
+            <section class="panel section" id="thresholds">
+              <h3 class="panel-title">阈值配置</h3>
+              <p class="panel-subtitle">设置对账时使用的金额容差、日期容差和提醒阈值。</p>
+              <div class="grid two" style="margin-top: 18px">
+                <div class="field">
+                  <label for="setting-amount-tolerance">金额容差</label>
+                  <input id="setting-amount-tolerance" type="number" step="0.01" />
+                </div>
+                <div class="field">
+                  <label for="setting-date-tolerance">日期容差（天）</label>
+                  <input id="setting-date-tolerance" type="number" step="1" />
+                </div>
+                <div class="field">
+                  <label for="setting-auto-score">自动匹配分数（%）</label>
+                  <input id="setting-auto-score" type="number" step="1" />
+                </div>
+                <div class="field">
+                  <label for="setting-alert-delay">关键警报延迟（分钟）</label>
+                  <input id="setting-alert-delay" type="number" step="1" />
+                </div>
+              </div>
+            </section>
+
+            <section class="panel section" id="directories">
+              <h3 class="panel-title">目录映射</h3>
+              <p class="panel-subtitle">本地版不会直接读取目录，这里仅记录文件来源和归档位置的约定。</p>
+              <div class="stack" style="margin-top: 18px">
+                <div class="field">
+                  <label for="setting-ingest-directory">主摄取目录说明</label>
+                  <input id="setting-ingest-directory" />
+                </div>
+                <div class="field">
+                  <label for="setting-archive-target">归档目标说明</label>
+                  <input id="setting-archive-target" />
+                </div>
+              </div>
+            </section>
+
+            <section class="panel section" id="payments">
+              <h3 class="panel-title">支付网关</h3>
+              <p class="panel-subtitle">这里只保存渠道名称和备注信息，不会发起任何真实支付动作。</p>
+              <div class="grid two" style="margin-top: 18px">
+                <div class="field">
+                  <label for="setting-primary-gateway">主通道</label>
+                  <input id="setting-primary-gateway" />
+                </div>
+                <div class="field">
+                  <label for="setting-backup-gateway">备用通道</label>
+                  <input id="setting-backup-gateway" />
+                </div>
+              </div>
+            </section>
+
+            <section class="panel section" id="security">
+              <h3 class="panel-title">本地数据</h3>
+              <p class="panel-subtitle">清除后会删除当前浏览器中保存的设置、任务日志和统计数据。</p>
+              <div class="metric-row">
+                <button class="primary-button" type="submit">保存更改</button>
+                <button class="danger-button" id="clear-local-data" type="button">清除本地数据</button>
+              </div>
+            </section>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

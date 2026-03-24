@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precision Architect - 仪表盘</title>
+    <link rel="stylesheet" href="./app.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-badge">账</div>
+          <div class="brand-copy">
+            <h1>企业对账系统</h1>
+            <p>本地对账台</p>
+          </div>
+        </div>
+        <nav class="nav-group">
+          <a class="nav-link active" href="./dashboard.html">仪表盘</a>
+          <a class="nav-link" href="./audit-log.html">审核日志</a>
+          <a class="nav-link" href="./monthly-report.html">月度汇总</a>
+          <a class="nav-link" href="./settings.html">系统设置</a>
+        </nav>
+        <div class="sidebar-footer">
+          <button class="primary-button" id="run-reconcile">运行批量对账</button>
+          <a class="ghost-button" href="./audit-log.html">查看全部日志</a>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="topbar">
+          <div class="page-header">
+            <p class="page-eyebrow">财务仪表板</p>
+            <h2>对账总览</h2>
+            <p>在本地完成文件解析、对账计算、日志留存与结果导出，无需依赖服务端。</p>
+          </div>
+        </section>
+
+        <section class="grid dashboard">
+          <div class="panel upload-card">
+            <h3 class="panel-title">数据导入</h3>
+            <p class="panel-subtitle">选择两份账务文件后即可开始对账，支持 CSV、JSON 和 XLSX。</p>
+            <div class="upload-zone">
+              <div class="upload-card-grid">
+                <section class="upload-file-card">
+                  <div class="upload-card-head">
+                    <div>
+                      <p class="upload-card-eyebrow">源文件</p>
+                      <h4>源账本 A</h4>
+                    </div>
+                    <span class="upload-chip">账本源</span>
+                  </div>
+                  <label class="file-trigger" for="file-a">选择文件</label>
+                  <input class="file-input" id="file-a" type="file" accept=".csv,.json,.xlsx" />
+                  <div class="file-summary" id="file-a-summary">
+                    <strong id="file-a-name">未选择文件</strong>
+                    <span id="file-a-meta">支持 CSV、JSON、XLSX</span>
+                  </div>
+                  <button class="ghost-button file-clear" id="file-a-clear" type="button">清除</button>
+                </section>
+                <section class="upload-file-card">
+                  <div class="upload-card-head">
+                    <div>
+                      <p class="upload-card-eyebrow">目标文件</p>
+                      <h4>目标账本 B</h4>
+                    </div>
+                    <span class="upload-chip">对照账</span>
+                  </div>
+                  <label class="file-trigger" for="file-b">选择文件</label>
+                  <input class="file-input" id="file-b" type="file" accept=".csv,.json,.xlsx" />
+                  <div class="file-summary" id="file-b-summary">
+                    <strong id="file-b-name">未选择文件</strong>
+                    <span id="file-b-meta">支持 CSV、JSON、XLSX</span>
+                  </div>
+                  <button class="ghost-button file-clear" id="file-b-clear" type="button">清除</button>
+                </section>
+              </div>
+              <div class="stack" style="margin-top: 16px;">
+                <div class="field">
+                  <label>最近任务</label>
+                  <div class="info-card">
+                    <strong>最近一次执行</strong>
+                    <span id="latest-task-summary">暂无任务</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label>字段要求</label>
+                  <div class="info-card">
+                    <strong>导入规则</strong>
+                    <span>至少包含日期和金额字段；交易号为可选项；支持 CSV、JSON、XLSX</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="stat-card primary">
+              <span class="stat-label">总处理金额</span>
+              <strong class="stat-value" id="dashboard-total-amount">-</strong>
+              <span class="stat-meta">已完成任务的累计金额</span>
+            </div>
+            <div class="grid two">
+              <div class="stat-card">
+                <span class="stat-label">自动匹配率</span>
+                <strong class="stat-value" id="dashboard-match-rate">-</strong>
+                <span class="stat-meta">按全部任务汇总计算</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">待处理异常</span>
+                <strong class="stat-value" id="dashboard-pending">-</strong>
+                <span class="stat-meta">未匹配记录与差异项</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel pad" style="margin-top: 20px">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h3 class="panel-title">最近对账活动</h3>
+              <p class="panel-subtitle">展示最近 8 条任务记录，可进入详情并导出结果文件。</p>
+            </div>
+            <div class="badge-row">
+              <span class="badge success">成功</span>
+              <span class="badge warn">存在差异</span>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>任务编号</th>
+                  <th>时间</th>
+                  <th>源账本 A</th>
+                  <th>目标账本 B</th>
+                  <th>金额</th>
+                  <th>状态</th>
+                  <th>准确率</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="recent-task-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="modal" id="task-detail-modal" hidden>
+          <div class="modal-card">
+            <div class="modal-header">
+              <div>
+                <p class="page-eyebrow" style="margin-bottom: 6px;">任务明细</p>
+                <h3 class="panel-title" id="detail-task-id">-</h3>
+                <p class="panel-subtitle" id="detail-files">-</p>
+              </div>
+              <button class="ghost-button" id="detail-close" type="button" onclick="this.closest('.modal').style.display='none'; this.closest('.modal').hidden=true; document.body.classList.remove('modal-open');">关闭</button>
+            </div>
+            <div class="metric-row" style="margin-top: 0;">
+              <div class="metric-pill">
+                <span class="note">创建时间</span>
+                <strong id="detail-created-at">-</strong>
+              </div>
+              <div class="metric-pill">
+                <span class="note">准确率</span>
+                <strong id="detail-accuracy">-</strong>
+              </div>
+              <div class="metric-pill" style="min-width: 320px;">
+                <span class="note">摘要</span>
+                <strong id="detail-summary-inline">-</strong>
+              </div>
+            </div>
+            <div class="toolbar" style="margin-top: 18px;">
+              <button class="secondary-button active-chip" data-detail-filter="all" type="button">全部</button>
+              <button class="secondary-button" data-detail-filter="matched" type="button">已匹配</button>
+              <button class="secondary-button" data-detail-filter="bank_only" type="button">仅银行侧</button>
+              <button class="secondary-button" data-detail-filter="ledger_only" type="button">仅台账侧</button>
+            </div>
+            <div class="toolbar">
+              <button class="ghost-button" id="detail-export-summary" type="button">导出 summary.json</button>
+              <button class="ghost-button" id="detail-export-matched" type="button">导出 matched.csv</button>
+              <button class="ghost-button" id="detail-export-bank" type="button">导出 unmatched_bank.csv</button>
+              <button class="ghost-button" id="detail-export-ledger" type="button">导出 unmatched_ledger.csv</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>类型</th>
+                    <th>银行行号</th>
+                    <th>台账行号</th>
+                    <th>银行金额</th>
+                    <th>台账金额</th>
+                    <th>差额</th>
+                    <th>日期</th>
+                    <th>交易号</th>
+                  </tr>
+                </thead>
+                <tbody id="detail-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
