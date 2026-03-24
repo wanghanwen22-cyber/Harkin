@@ -1,4 +1,0 @@
-match_type,bank_row,ledger_row,bank_amount,ledger_amount,bank_date,ledger_date,bank_tx_id,ledger_tx_id
-id_match,1,1,100.00,100.00,2026-02-01,2026-02-01,T001,T001
-id_match,2,2,50.20,50.20,2026-02-02,2026-02-02,T002,T002
-amount_date_match,3,3,88.00,88.00,2026-02-03,2026-02-03,,ABC

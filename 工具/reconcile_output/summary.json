@@ -1,9 +1,0 @@
-{
-  "bank_total": 4,
-  "ledger_total": 4,
-  "matched": 3,
-  "bank_unmatched": 1,
-  "ledger_unmatched": 1,
-  "amount_tolerance": "0.00",
-  "date_tolerance_days": 0
-}

@@ -1,7 +1,0 @@
-date,tx_id,amount,description
-2026-03-20,TX1001,1280.50,Corporate payment A
-2026-03-20,TX1002,980.00,Corporate payment B
-2026-03-21,TX1003,4500.00,Monthly settlement
-2026-03-21,FEE-01,120.00,Bank fee
-2026-03-22,TX1005,760.35,Vendor payout
-2026-03-22,TX9999,300.00,Ledger only item
